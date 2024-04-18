@@ -8,6 +8,8 @@
 <br>
 <p>Understand Particle Filter by example and animations.</p>
 
+ref :https://github.com/hunkyu/particle_filter_localization_demo.git
+
 <h1>Example</h1>
 <h2>Relocalization</h2>
 <div style="vertical-align:middle; text-align:center">
@@ -36,6 +38,7 @@
 ```
 sudo apt-get install cmake python3 python3-matplotlib libeigen3-dev
 ```
+
 <h2>Compile</h2>
 
 ```
@@ -45,7 +48,6 @@ cmake ..
 make -j8
 make install
 ```
-
 
 </table>
 <h1>References</h1>
@@ -59,6 +61,7 @@ make install
         </li>
         <li>
             <a href="https://github.com/AtsushiSakai/PythonRobotics/blob/master/Localization/particle_filter/particle_filter.py">PythonRobotics Paricle Filter Localization</a>
+https://blog.csdn.net/GGY1102/article/details/115176105
         </li>
     </ul>
 </p>
@@ -68,4 +71,3 @@ make install
 <li>Xiaoxing Chen</li>
 </ul>
 </body>
-

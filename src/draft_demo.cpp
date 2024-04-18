@@ -1,6 +1,7 @@
 #include <iostream>
-#include "matplotlib_eigen.h"
 #include <vector>
+
+#include "matplotlib_eigen.h"
 #include "std_vector_to_edge_matrix.h"
 #include "intersect_detection.h"
 #include "sim_lidar_detection.h"
