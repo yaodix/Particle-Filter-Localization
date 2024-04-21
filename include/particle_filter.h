@@ -95,7 +95,7 @@ CalculateMeasurementWeight(
     std::cout << "log_sum_vec: " << log_sum_vec.transpose() << std::endl;
     log_best_likelihood = log_sum_vec.maxCoeff();
     log_sum_vec.array() -= log_sum_vec.maxCoeff();
-    (*p_weight_vec) = (weight_vector.array() * log_sum_vec.array().exp()).matrix();
+    (*p_weight_vec) = (weight_vector.array() * log_sum_vec.array().exp()).matrix();  // ?
 
     double weight_sum = p_weight_vec->sum();
     

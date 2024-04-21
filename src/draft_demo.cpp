@@ -1,7 +1,7 @@
 #include <iostream>
+// #include "matplotlib_eigen.h"
+#include <opencv2/opencv.hpp>
 #include <vector>
-
-#include "matplotlib_eigen.h"
 #include "std_vector_to_edge_matrix.h"
 #include "intersect_detection.h"
 #include "sim_lidar_detection.h"
@@ -10,7 +10,6 @@
 #include "particle_filter.h"
 
 using namespace std;
-namespace plt = matplotlibcpp;
 
 inline Eigen::Vector3d Transform2D(const Eigen::Vector3d& state_vector_in, const Eigen::Vector3d& transform)
 {
@@ -68,16 +67,15 @@ int main(int argc, char** argv)
         Eigen::Vector3d tf(v*t_step);
         vehicle.Transform(tf);
         lidar_pose = vehicle.GetState();
-        Eigen::VectorXd measurement = 
-            SimLidarDetection(lidar_pose, lidar_resolution, lidar_range, edge_mat);
+        Eigen::VectorXd measurement = SimLidarDetection(lidar_pose, lidar_resolution, lidar_range, edge_mat);  // 当前雷达数据
         {
             Eigen::MatrixXd measurement_particles(particle_num, lidar_resolution);
             for(int i = 0; i < particle_num; i++)
             {
-                particles.row(i) = Transform2D(particles.row(i), tf);
+                particles.row(i) = Transform2D(particles.row(i), tf);  // 每个粒子应用运动模型
 
                 measurement_particles.row(i) = 
-                    SimLidarDetection(particles.row(i), lidar_resolution, lidar_range, edge_mat);
+                    SimLidarDetection(particles.row(i), lidar_resolution, lidar_range, edge_mat);  // 更新每个粒子雷达测量结果
             }
             auto estimate_pose = ParticleFilterUpdate(
                                     measurement, 
@@ -91,18 +89,18 @@ int main(int argc, char** argv)
             
         auto VizMat = LidarMeasurementToVizPoint(measurement, veh_est.GetState(), lidar_resolution, lidar_range);
 
-        plt::clf();
-        plt::plot(VizMat,"r-");
-        plt::plot(particles.block(0,0,particle_num, 2).matrix(), "g.");
-        plt::plot(edge_map_0,"k");
-        plt::plot(vehicle.GetVizVector(),"k");
+        // plt::clf();
+        // plt::plot(VizMat,"r-");
+        // plt::plot(particles.block(0,0,particle_num, 2).matrix(), "g.");
+        // plt::plot(edge_map_0,"k");
+        // plt::plot(vehicle.GetVizVector(),"k");
         
         
-        plt::plot(veh_est.GetVizVector(),"b--");
-        plt::axis("equal");
-        plt::xlim(-5,60);
-        plt::ylim(-5,60);
-        plt::pause(0.01);
+        // plt::plot(veh_est.GetVizVector(),"b--");
+        // plt::axis("equal");
+        // plt::xlim(-5,60);
+        // plt::ylim(-5,60);
+        // plt::pause(0.01);
         if(argc > 1)
             cin.get();
     }

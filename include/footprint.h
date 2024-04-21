@@ -1,4 +1,3 @@
-#include "matplotlibcpp.h"
 #include <vector>
 #include <Eigen/Dense>
 
